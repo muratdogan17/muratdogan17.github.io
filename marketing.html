@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blind Timer - Can You Feel the Time?</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        color: #fff;
+        background: #000;
+        min-height: 100vh;
+      }
+      a {
+        color: #ff453a;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 80px 24px 60px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .hero-icon {
+        width: 96px;
+        height: 96px;
+        border-radius: 22px;
+        background: rgba(255, 69, 58, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 28px;
+        font-size: 44px;
+      }
+      .hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 12px;
+      }
+      .hero h1 span {
+        color: #ff453a;
+      }
+      .hero .tagline {
+        font-size: 20px;
+        color: rgba(235, 235, 245, 0.6);
+        font-style: italic;
+        margin-bottom: 32px;
+      }
+      .hero .description {
+        font-size: 18px;
+        line-height: 1.7;
+        color: rgba(235, 235, 245, 0.8);
+        max-width: 540px;
+        margin: 0 auto 40px;
+      }
+      .app-store-btn {
+        display: inline-block;
+        background: #fff;
+        color: #000;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 14px 32px;
+        border-radius: 12px;
+        transition: opacity 0.2s;
+      }
+      .app-store-btn:hover {
+        text-decoration: none;
+        opacity: 0.85;
+      }
+
+      /* Features */
+      .features {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+      .feature-card {
+        background: #1c1c1e;
+        border-radius: 16px;
+        padding: 28px 24px;
+      }
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 16px;
+      }
+      .feature-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .feature-card p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: rgba(235, 235, 245, 0.6);
+      }
+
+      /* How it works */
+      .how-it-works {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+        text-align: center;
+      }
+      .how-it-works h2 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 40px;
+      }
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        text-align: left;
+      }
+      .step {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        background: #ff453a;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .step-content h3 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .step-content p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: rgba(235, 235, 245, 0.6);
+      }
+
+      /* Difficulty */
+      .difficulty {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 20px 24px 60px;
+        text-align: center;
+      }
+      .difficulty h2 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 32px;
+      }
+      .diff-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .diff-card {
+        border-radius: 16px;
+        padding: 24px 16px;
+        text-align: center;
+      }
+      .diff-card.easy {
+        background: rgba(48, 209, 88, 0.1);
+        border: 1px solid rgba(48, 209, 88, 0.2);
+      }
+      .diff-card.medium {
+        background: rgba(255, 159, 10, 0.1);
+        border: 1px solid rgba(255, 159, 10, 0.2);
+      }
+      .diff-card.hard {
+        background: rgba(255, 69, 58, 0.1);
+        border: 1px solid rgba(255, 69, 58, 0.2);
+      }
+      .diff-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .diff-card.easy h3 {
+        color: #30d158;
+      }
+      .diff-card.medium h3 {
+        color: #ff9f0a;
+      }
+      .diff-card.hard h3 {
+        color: #ff453a;
+      }
+      .diff-card .range {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 8px 0;
+      }
+      .diff-card.easy .range {
+        color: #30d158;
+      }
+      .diff-card.medium .range {
+        color: #ff9f0a;
+      }
+      .diff-card.hard .range {
+        color: #ff453a;
+      }
+      .diff-card p {
+        font-size: 13px;
+        color: rgba(235, 235, 245, 0.5);
+        line-height: 1.5;
+      }
+
+      /* Footer */
+      .footer {
+        border-top: 1px solid rgba(84, 84, 88, 0.4);
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+        text-align: center;
+      }
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        font-size: 15px;
+        color: rgba(235, 235, 245, 0.6);
+      }
+      .footer-links a:hover {
+        color: #fff;
+      }
+      .footer .copyright {
+        font-size: 13px;
+        color: rgba(235, 235, 245, 0.3);
+      }
+
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 36px;
+        }
+        .hero .tagline {
+          font-size: 17px;
+        }
+        .hero .description {
+          font-size: 16px;
+        }
+        .diff-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon">
+        <svg
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ff453a"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      </div>
+      <h1>Blind <span>Timer</span></h1>
+      <p class="tagline">Can you feel the time?</p>
+      <p class="description">
+        A party game that puts your internal clock to the test. The timer hides
+        after 1.5 seconds &mdash; stop as close to the target as you can.
+        Perfect for family game nights, road trips, and friendly competitions.
+      </p>
+      <a href="#" class="app-store-btn">Download on the App Store</a>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(48, 209, 88, 0.15)">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#30d158"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <h3>Multiplayer</h3>
+        <p>
+          Add up to 4 players for free or go unlimited with Premium. Pass the
+          phone and take turns.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(255, 159, 10, 0.15)">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ff9f0a"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+            />
+          </svg>
+        </div>
+        <h3>Three Difficulty Modes</h3>
+        <p>
+          Easy gives you haptic beats every second. Medium and Hard leave you
+          with nothing but your gut feeling.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(10, 132, 255, 0.15)">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#0a84ff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M6 9H4.5a2.5 2.5 0 0 1 0-5C6 4 6 7 6 7s0-3 1.5-3a2.5 2.5 0 0 1 0 5H6z"
+            />
+            <path d="M6 9v12" />
+            <path
+              d="M18 9h1.5a2.5 2.5 0 0 0 0-5C18 4 18 7 18 7s0-3-1.5-3a2.5 2.5 0 0 0 0 5H18z"
+            />
+            <path d="M18 9v12" />
+            <rect x="2" y="21" width="20" height="0" rx="0" />
+          </svg>
+        </div>
+        <h3>Leaderboards & History</h3>
+        <p>
+          See who nailed it with ranked results after every round. Track your
+          game history over time.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(191, 90, 242, 0.15)">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#bf5af2"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <h3>Premium (One-Time)</h3>
+        <p>
+          Unlock unlimited players, remove all ads, and keep full game history.
+          No subscriptions &mdash; pay once, own forever.
+        </p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Add Players</h3>
+            <p>Enter at least 2 player names and pick a difficulty level.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Pass the Phone</h3>
+            <p>
+              Hand the device to the current player. They see the target time
+              and tap when ready.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>The Timer Hides</h3>
+            <p>
+              The timer is visible for 1.5 seconds, then disappears. Now you're
+              blind &mdash; trust your instincts.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Stop!</h3>
+            <p>
+              Tap the big red button when you think you've hit the target. The
+              closer you are, the higher you rank.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>See Who Wins</h3>
+            <p>
+              After everyone plays, the leaderboard reveals the rankings. Play
+              again with a new random target!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Difficulty -->
+    <section class="difficulty">
+      <h2>Choose Your Challenge</h2>
+      <div class="diff-cards">
+        <div class="diff-card easy">
+          <h3>Easy</h3>
+          <div class="range">2-5s</div>
+          <p>Haptic vibration every second as your guide</p>
+        </div>
+        <div class="diff-card medium">
+          <h3>Medium</h3>
+          <div class="range">5-10s</div>
+          <p>No haptics &mdash; count in your head</p>
+        </div>
+        <div class="diff-card hard">
+          <h3>Hard</h3>
+          <div class="range">10-15s</div>
+          <p>No help at all &mdash; trust your gut</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:muratdogan@yahoo.com">Contact</a>
+      </div>
+      <p class="copyright">
+        &copy; 2026 Murat Do&#287;an. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
