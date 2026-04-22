@@ -58,6 +58,15 @@
       email address, or location. Player names entered during gameplay are
       stored only on your device and are never sent to any server.
     </p>
+    <h2>Usage analytics and crash reporting.</h2>
+    <p>
+      Blind Timer uses PostHog for anonymous product analytics (events like
+      game_started, round_completed, paywall_shown — no player names are ever
+      sent) and Sentry for crash reporting (stack traces and device metadata).
+      These services receive a random anonymous device identifier but no
+      personally identifying information. You can disable this at any time in
+      Settings → Privacy → Share anonymous usage data.
+    </p>
 
     <h2>Advertising</h2>
     <p>
