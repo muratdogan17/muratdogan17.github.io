@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Murat Doğan — Product Engineer</title>
+    <meta
+      name="description"
+      content="Murat Doğan — product engineer with 17 years of frontend depth, shipping products end to end. React, TypeScript, AI-augmented development. Istanbul, remote across EU time zones."
+    />
+    <meta property="og:title" content="Murat Doğan — Product Engineer" />
+    <meta
+      property="og:description"
+      content="17 years of frontend depth, now shipping products end to end — design to App Store."
+    />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Set theme before first paint to avoid a flash -->
+    <script>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem("md-theme");
+        } catch (e) {}
+        if (!theme) {
+          theme =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+
+    <style>
+      /* ============ Tokens ============ */
+      :root {
+        --bg: #fbfaf7;
+        --bg-raised: #ffffff;
+        --ink: #1c2430;
+        --ink-soft: #4c5665;
+        --ink-faint: #7b8494;
+        --line: #e4e1d8;
+        --accent: #8a6110; /* burnished gold, dark enough for text on light bg */
+        --accent-soft: #f0e6cf;
+        --ok: #1e7d5f;
+        --focus: #2456c7;
+        --sans: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+        --maxw: 46rem;
+      }
+      [data-theme="dark"] {
+        --bg: #10151d;
+        --bg-raised: #171e28;
+        --ink: #e8e6e0;
+        --ink-soft: #aab2bf;
+        --ink-faint: #79828f;
+        --line: #2a3340;
+        --accent: #e2b03f; /* brighter gold for dark bg */
+        --accent-soft: #33301f;
+        --ok: #4cc296;
+        --focus: #7aa5f5;
+      }
+
+      /* ============ Base ============ */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.65;
+        font-size: 1.0625rem;
+        -webkit-font-smoothing: antialiased;
+        transition:
+          background-color 0.25s ease,
+          color 0.25s ease;
+      }
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+      ::selection {
+        background: var(--accent-soft);
+      }
+
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--bg-raised);
+        color: var(--ink);
+        padding: 0.5rem 1rem;
+        z-index: 100;
+        border: 1px solid var(--line);
+      }
+      .skip-link:focus {
+        left: 1rem;
+        top: 1rem;
+      }
+
+      /* ============ Header ============ */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0.7rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .brand {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--ink);
+        text-decoration: none;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+      nav.site-nav {
+        display: flex;
+        gap: 1rem;
+        margin-left: auto;
+      }
+      nav.site-nav a {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+        text-decoration: none;
+      }
+      nav.site-nav a:hover {
+        color: var(--accent);
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-left: 1rem;
+      }
+      .lang-toggle {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+      }
+      .lang-toggle button {
+        background: none;
+        border: none;
+        color: var(--ink-faint);
+        padding: 0.3rem 0.55rem;
+        cursor: pointer;
+        font: inherit;
+      }
+      .lang-toggle button[aria-pressed="true"] {
+        background: var(--accent-soft);
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .theme-toggle {
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        color: var(--ink-soft);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .theme-toggle:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .theme-toggle svg {
+        width: 15px;
+        height: 15px;
+      }
+      [data-theme="light"] .icon-sun {
+        display: none;
+      }
+      [data-theme="dark"] .icon-moon {
+        display: none;
+      }
+
+      /* ============ Layout ============ */
+      main {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+      section {
+        padding: 4rem 0 0;
+      }
+      section:last-of-type {
+        padding-bottom: 4rem;
+      }
+
+      .section-label {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1.4rem;
+      }
+      .section-label::before {
+        content: "";
+        width: 1.4rem;
+        height: 2px;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      /* ============ Hero ============ */
+      .hero {
+        padding: 5rem 0 3.5rem;
+      }
+      .hero .eyebrow {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 1.2rem;
+      }
+      .hero h1 {
+        font-size: clamp(2.4rem, 6vw, 3.4rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.08;
+        margin-bottom: 1.2rem;
+      }
+      .hero .lede {
+        font-size: clamp(1.15rem, 2.6vw, 1.35rem);
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1.5;
+        max-width: 38rem;
+        margin-bottom: 1rem;
+      }
+      .hero .lede em {
+        font-style: normal;
+        box-shadow: inset 0 -0.45em 0 var(--accent-soft);
+      }
+      .hero .sub {
+        color: var(--ink-soft);
+        max-width: 38rem;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin-top: 1.8rem;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.4rem 0.9rem;
+      }
+      .status .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ok);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 20%, transparent);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .hero > * {
+          animation: rise 0.5s ease both;
+        }
+        .hero > *:nth-child(2) {
+          animation-delay: 0.06s;
+        }
+        .hero > *:nth-child(3) {
+          animation-delay: 0.12s;
+        }
+        .hero > *:nth-child(4) {
+          animation-delay: 0.18s;
+        }
+        .hero > *:nth-child(5) {
+          animation-delay: 0.24s;
+        }
+        @keyframes rise {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+      }
+
+      /* ============ Prose ============ */
+      .prose p + p {
+        margin-top: 1rem;
+      }
+      .prose {
+        color: var(--ink-soft);
+        max-width: 40rem;
+      }
+      .prose strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ============ Skills ============ */
+      .skill-row {
+        display: grid;
+        grid-template-columns: 11.5rem 1fr;
+        gap: 0.5rem 1.5rem;
+        padding: 1rem 0;
+        border-top: 1px solid var(--line);
+      }
+      .skill-row:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .skill-row h3 {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--ink);
+        letter-spacing: 0.02em;
+        padding-top: 0.1rem;
+      }
+      .skill-row p {
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+      }
+      @media (max-width: 40rem) {
+        .skill-row {
+          grid-template-columns: 1fr;
+          gap: 0.25rem;
+        }
+      }
+
+      /* ============ Experience ============ */
+      .job {
+        padding: 1.4rem 0;
+        border-top: 1px solid var(--line);
+      }
+      .job:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .job-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.25rem 0.75rem;
+        margin-bottom: 0.4rem;
+      }
+      .job-head h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+      .job-head .co {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+      }
+      .job-head .period {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--ink-faint);
+        white-space: nowrap;
+      }
+      .job p {
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+        max-width: 40rem;
+      }
+      @media (max-width: 40rem) {
+        .job-head .period {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+
+      /* ============ Project ============ */
+      .project-card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--bg-raised);
+        padding: 2rem;
+      }
+      .project-card .kicker {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+      }
+      .project-card h3 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .project-card .tagline {
+        color: var(--ink-soft);
+        margin: 0.35rem 0 1rem;
+      }
+      .project-card .body {
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+        max-width: 40rem;
+      }
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1.25rem 0 1.5rem;
+        list-style: none;
+      }
+      .facts li {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        color: var(--ink-soft);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.28rem 0.7rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        color: var(--bg);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.6rem 1.15rem;
+        border-radius: 8px;
+        border: 1px solid transparent;
+      }
+      .btn:hover {
+        filter: brightness(1.08);
+      }
+      .btn.ghost {
+        background: none;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      .btn.ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        filter: none;
+      }
+
+      /* ============ Work with me ============ */
+      .offer-list {
+        list-style: none;
+        margin: 1.25rem 0 1.75rem;
+      }
+      .offer-list li {
+        padding: 0.8rem 0;
+        border-top: 1px solid var(--line);
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+        max-width: 40rem;
+      }
+      .offer-list li:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .offer-list strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ============ Contact / footer ============ */
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        margin-top: 2rem;
+      }
+      .footer-inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 1.5rem 1.25rem;
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        color: var(--ink-faint);
+      }
+
+      @media (max-width: 40rem) {
+        nav.site-nav {
+          display: none;
+        }
+        .controls {
+          margin-left: auto;
+        }
+        .hero {
+          padding-top: 3.5rem;
+        }
+        .project-card {
+          padding: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="#top">Murat Doğan</a>
+        <nav class="site-nav" aria-label="Sections">
+          <a href="#about" data-i18n="nav_about">About</a>
+          <a href="#skills" data-i18n="nav_skills">Skills</a>
+          <a href="#experience" data-i18n="nav_exp">Experience</a>
+          <a href="#project">BlindTimer</a>
+          <a href="#contact" data-i18n="nav_contact">Contact</a>
+        </nav>
+        <div class="controls">
+          <div class="lang-toggle" role="group" aria-label="Language">
+            <button
+              type="button"
+              id="lang-en"
+              aria-pressed="true"
+              onclick="setLang('en')"
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              id="lang-tr"
+              aria-pressed="false"
+              onclick="setLang('tr')"
+            >
+              TR
+            </button>
+          </div>
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+            onclick="toggleTheme()"
+          >
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <p class="eyebrow" data-i18n="hero_eyebrow">
+          Product Engineer · Istanbul · Remote (EU time zones)
+        </p>
+        <h1>Murat Doğan</h1>
+        <p class="lede" data-i18n-html="hero_lede">
+          Seventeen years deep in frontend engineering — now shipping products
+          <em>end to end</em>, from first sketch to the App Store.
+        </p>
+        <p class="sub" data-i18n="hero_sub">
+          I build with React and TypeScript, and I work AI-augmented every day
+          with agentic tools like Claude Code — knowing when to trust the
+          output, and when not to. Always close to the product, never just
+          closing tickets.
+        </p>
+        <p class="status">
+          <span class="dot" aria-hidden="true"></span
+          ><span data-i18n="hero_status"
+            >Open to consulting and full-time roles</span
+          >
+        </p>
+      </section>
+
+      <!-- About -->
+      <section id="about">
+        <h2 class="section-label" data-i18n="about_label">About</h2>
+        <div class="prose">
+          <p data-i18n="about_p1">
+            For 17 years I've built interfaces for high-traffic products and
+            global brands — always sitting close to the product, not just the
+            codebase. That habit eventually became a role: today I work as a
+            product engineer, owning the whole loop from design decisions to
+            production releases.
+          </p>
+          <p data-i18n="about_p2">
+            At Flywheel Digital I spent ten months as interim Engineering
+            Manager, then made a deliberate choice to return to the
+            individual-contributor track. I like technical leadership best when
+            it's hands-on: architecture decisions written down as RFCs and ADRs,
+            developer experience treated as a product, and friction removed
+            systematically rather than heroically.
+          </p>
+          <p data-i18n="about_p3">
+            AI changed what one engineer can ship. I use Claude Code daily — not
+            to skip the thinking, but to widen what I can build alone.
+            BlindTimer, below, is what that looks like in practice.
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <h2 class="section-label" data-i18n="skills_label">Skills</h2>
+        <div class="skill-row">
+          <h3 data-i18n="skills_g1">Frontend — deep</h3>
+          <p data-i18n="skills_g1_items">
+            React, TypeScript, JavaScript (ES6+), Next.js, Vite, design systems,
+            shared component libraries, performance optimization, accessibility
+          </p>
+        </div>
+        <div class="skill-row">
+          <h3 data-i18n="skills_g2">Full-stack — expanding</h3>
+          <p>Node.js, REST &amp; GraphQL APIs, PostgreSQL</p>
+        </div>
+        <div class="skill-row">
+          <h3 data-i18n="skills_g3">AI-augmented development</h3>
+          <p data-i18n="skills_g3_items">
+            Claude Code and agentic workflows as a daily practice — with
+            judgment about when to trust the output
+          </p>
+        </div>
+        <div class="skill-row">
+          <h3 data-i18n="skills_g4">Technical leadership</h3>
+          <p data-i18n="skills_g4_items">
+            Architecture decisions (RFC/ADR), developer experience, mentoring,
+            cross-team alignment
+          </p>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section id="experience">
+        <h2 class="section-label" data-i18n="exp_label">Experience</h2>
+        <article class="job">
+          <div class="job-head">
+            <h3>Staff Software Engineer</h3>
+            <span class="co" data-i18n="job1_co"
+              >Flywheel Digital (Omnicom) · Remote</span
+            >
+            <span class="period" data-i18n="job1_period">2022 — Present</span>
+          </div>
+          <p data-i18n="job1_body">
+            Technical leadership on a large-scale commerce analytics platform:
+            architecture decisions (RFCs/ADRs), shared component libraries,
+            developer experience. Served about ten months as interim Engineering
+            Manager before deliberately returning to the IC /
+            technical-leadership track.
+          </p>
+        </article>
+        <article class="job">
+          <div class="job-head">
+            <h3 data-i18n="job2_title">Frontend Engineer → Architect</h3>
+            <span class="co" data-i18n="job2_co">Products &amp; agencies</span>
+            <span class="period">2007 — 2022</span>
+          </div>
+          <p data-i18n="job2_body">
+            Seventeen years of frontend engineering and architecture for
+            high-traffic products and global brands — from hand-rolled
+            JavaScript to modern React stacks.
+          </p>
+        </article>
+      </section>
+
+      <!-- Featured project -->
+      <section id="project">
+        <h2 class="section-label" data-i18n="project_label">
+          Featured project
+        </h2>
+        <div class="project-card">
+          <p class="kicker" data-i18n="project_kicker">Live on the App Store</p>
+          <h3>BlindTimer</h3>
+          <p class="tagline" data-i18n="project_tagline">
+            An iOS party game — designed, coded and shipped solo.
+          </p>
+          <p class="body" data-i18n="project_body">
+            BlindTimer is live and earning: multiple game modes, six languages,
+            VoiceOver accessibility, and revenue through in-app purchases and
+            ads. I built it end to end with Claude Code as a daily pair —
+            product design, code, localization, store release. It's my proof
+            that "product engineer" isn't a title; it's a working method.
+          </p>
+          <ul class="facts" aria-label="Highlights">
+            <li data-i18n="fact_1">6 languages</li>
+            <li data-i18n="fact_2">Multiple game modes</li>
+            <li data-i18n="fact_3">VoiceOver accessibility</li>
+            <li data-i18n="fact_4">IAP + ads revenue</li>
+          </ul>
+          <a
+            class="btn"
+            href="https://apps.apple.com/tr/app/blind-timer-family-game/id6762046929"
+            target="_blank"
+            rel="noopener"
+          >
+            <span data-i18n="project_cta">View on the App Store</span> ↗
+          </a>
+        </div>
+      </section>
+
+      <!-- Work with me -->
+      <section id="work">
+        <h2 class="section-label" data-i18n="work_label">Work with me</h2>
+        <div class="prose">
+          <p data-i18n="work_intro">
+            Alongside full-time roles, I take on consulting and freelance work.
+            Where I'm most useful:
+          </p>
+        </div>
+        <ul class="offer-list">
+          <li data-i18n-html="work_o1">
+            <strong>Frontend architecture &amp; design systems</strong> —
+            untangling large React/TypeScript codebases, building shared
+            component libraries that teams actually adopt.
+          </li>
+          <li data-i18n-html="work_o2">
+            <strong>AI-augmented development</strong> — helping teams fold
+            agentic tools into real engineering practice, without the quality
+            drop.
+          </li>
+          <li data-i18n-html="work_o3">
+            <strong>End-to-end product builds</strong> — from idea to shipped
+            product, with one accountable engineer.
+          </li>
+        </ul>
+        <a class="btn" href="#" data-mailto data-i18n="work_cta"
+          >Tell me about your project</a
+        >
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <h2 class="section-label" data-i18n="contact_label">Contact</h2>
+        <div class="prose">
+          <p data-i18n="contact_p">
+            The fastest way to reach me is email. I'm based in Istanbul (UTC+3)
+            and work remotely across EU time zones.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="btn" href="#" data-mailto data-i18n="contact_email_btn"
+            >Email me</a
+          >
+          <a
+            class="btn ghost"
+            href="https://www.linkedin.com/in/muratdogan17"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn ↗</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner" data-i18n="footer">
+        © 2026 Murat Doğan · Hand-built as a single HTML file — no framework, no
+        tracking.
+      </div>
+    </footer>
+
+    <script>
+      /* ================================================================
+       CONFIG — fill this in before deploying
+       ================================================================ */
+      const EMAIL = "muratdogan@yahoo.com";
+
+      /* ================================================================
+       Translations
+       ================================================================ */
+      const I18N = {
+        en: {
+          skip: "Skip to content",
+          nav_about: "About",
+          nav_skills: "Skills",
+          nav_exp: "Experience",
+          nav_contact: "Contact",
+          hero_eyebrow: "Product Engineer · Istanbul · Remote (EU time zones)",
+          hero_lede:
+            "Seventeen years deep in frontend engineering — now shipping products <em>end to end</em>, from first sketch to the App Store.",
+          hero_sub:
+            "I build with React and TypeScript, and I work AI-augmented every day with agentic tools like Claude Code — knowing when to trust the output, and when not to. Always close to the product, never just closing tickets.",
+          hero_status: "Open to consulting and full-time roles",
+          about_label: "About",
+          about_p1:
+            "For 17 years I've built interfaces for high-traffic products and global brands — always sitting close to the product, not just the codebase. That habit eventually became a role: today I work as a product engineer, owning the whole loop from design decisions to production releases.",
+          about_p2:
+            "At Flywheel Digital I spent ten months as interim Engineering Manager, then made a deliberate choice to return to the individual-contributor track. I like technical leadership best when it's hands-on: architecture decisions written down as RFCs and ADRs, developer experience treated as a product, and friction removed systematically rather than heroically.",
+          about_p3:
+            "AI changed what one engineer can ship. I use Claude Code daily — not to skip the thinking, but to widen what I can build alone. BlindTimer, below, is what that looks like in practice.",
+          skills_label: "Skills",
+          skills_g1: "Frontend — deep",
+          skills_g1_items:
+            "React, TypeScript, JavaScript (ES6+), Next.js, Vite, design systems, shared component libraries, performance optimization, accessibility",
+          skills_g2: "Full-stack — expanding",
+          skills_g3: "AI-augmented development",
+          skills_g3_items:
+            "Claude Code and agentic workflows as a daily practice — with judgment about when to trust the output",
+          skills_g4: "Technical leadership",
+          skills_g4_items:
+            "Architecture decisions (RFC/ADR), developer experience, mentoring, cross-team alignment",
+          exp_label: "Experience",
+          job1_co: "Flywheel Digital (Omnicom) · Remote",
+          job1_period: "2022 — Present",
+          job1_body:
+            "Technical leadership on a large-scale commerce analytics platform: architecture decisions (RFCs/ADRs), shared component libraries, developer experience. Served about ten months as interim Engineering Manager before deliberately returning to the IC / technical-leadership track.",
+          job2_title: "Frontend Engineer → Architect",
+          job2_co: "Products & agencies",
+          job2_body:
+            "Seventeen years of frontend engineering and architecture for high-traffic products and global brands — from hand-rolled JavaScript to modern React stacks.",
+          project_label: "Featured project",
+          project_kicker: "Live on the App Store",
+          project_tagline:
+            "An iOS party game — designed, coded and shipped solo.",
+          project_body:
+            "BlindTimer is live and earning: multiple game modes, six languages, VoiceOver accessibility, and revenue through in-app purchases and ads. I built it end to end with Claude Code as a daily pair — product design, code, localization, store release. It's my proof that \"product engineer\" isn't a title; it's a working method.",
+          fact_1: "6 languages",
+          fact_2: "Multiple game modes",
+          fact_3: "VoiceOver accessibility",
+          fact_4: "IAP + ads revenue",
+          project_cta: "View on the App Store",
+          work_label: "Work with me",
+          work_intro:
+            "Alongside full-time roles, I take on consulting and freelance work. Where I'm most useful:",
+          work_o1:
+            "<strong>Frontend architecture &amp; design systems</strong> — untangling large React/TypeScript codebases, building shared component libraries that teams actually adopt.",
+          work_o2:
+            "<strong>AI-augmented development</strong> — helping teams fold agentic tools into real engineering practice, without the quality drop.",
+          work_o3:
+            "<strong>End-to-end product builds</strong> — from idea to shipped product, with one accountable engineer.",
+          work_cta: "Tell me about your project",
+          contact_label: "Contact",
+          contact_p:
+            "The fastest way to reach me is email. I'm based in Istanbul (UTC+3) and work remotely across EU time zones.",
+          contact_email_btn: "Email me",
+          footer:
+            "© 2026 Murat Doğan · Hand-built as a single HTML file — no framework, no tracking.",
+          meta_desc:
+            "Murat Doğan — product engineer with 17 years of frontend depth, shipping products end to end. React, TypeScript, AI-augmented development. Istanbul, remote across EU time zones.",
+        },
+        tr: {
+          skip: "İçeriğe geç",
+          nav_about: "Hakkımda",
+          nav_skills: "Yetenekler",
+          nav_exp: "Deneyim",
+          nav_contact: "İletişim",
+          hero_eyebrow:
+            "Product Engineer · İstanbul · Uzaktan (AB saat dilimleri)",
+          hero_lede:
+            "17 yıllık frontend derinliği — artık ürünü <em>uçtan uca</em> çıkarıyorum: ilk eskizden App Store'a.",
+          hero_sub:
+            "React ve TypeScript ile geliştiriyorum; Claude Code gibi agentic araçlarla her gün AI destekli çalışıyorum — ama çıktıya ne zaman güvenip ne zaman güvenmeyeceğimi bilerek. Ürüne her zaman yakınım; sadece ticket kapatmam.",
+          hero_status: "Danışmanlık ve tam zamanlı roller için uygunum",
+          about_label: "Hakkımda",
+          about_p1:
+            "17 yıldır yüksek trafikli ürünler ve global markalar için arayüz geliştiriyorum — her zaman yalnızca kodun değil, ürünün de yanında oturarak. Bu alışkanlık zamanla bir role dönüştü: bugün tasarım kararlarından production yayınına kadar tüm döngüyü sahiplenen bir product engineer olarak çalışıyorum.",
+          about_p2:
+            "Flywheel Digital'de yaklaşık on ay interim Engineering Manager olarak çalıştım; ardından bilinçli bir kararla bireysel katkı (IC) yoluna döndüm. Teknik liderliği en çok elim koddayken seviyorum: RFC ve ADR olarak yazıya dökülen mimari kararlar, bir ürün gibi ele alınan developer experience ve kahramanlıkla değil sistematik biçimde ortadan kaldırılan sürtünme.",
+          about_p3:
+            "AI, tek bir mühendisin çıkarabileceği işin sınırını değiştirdi. Claude Code'u her gün kullanıyorum — düşünmeyi atlamak için değil, tek başıma inşa edebileceklerimi genişletmek için. Aşağıdaki BlindTimer, bunun pratikte neye benzediğini gösteriyor.",
+          skills_label: "Yetenekler",
+          skills_g1: "Frontend — derin",
+          skills_g1_items:
+            "React, TypeScript, JavaScript (ES6+), Next.js, Vite, design system'ler, ortak bileşen kütüphaneleri, performans optimizasyonu, erişilebilirlik",
+          skills_g2: "Full-stack — genişleyen",
+          skills_g3: "AI destekli geliştirme",
+          skills_g3_items:
+            "Günlük pratik olarak Claude Code ve agentic iş akışları — çıktıya ne zaman güvenileceğine dair muhakemeyle",
+          skills_g4: "Teknik liderlik",
+          skills_g4_items:
+            "Mimari kararlar (RFC/ADR), developer experience, mentorluk, ekipler arası hizalanma",
+          exp_label: "Deneyim",
+          job1_co: "Flywheel Digital (Omnicom) · Uzaktan",
+          job1_period: "2022 — Günümüz",
+          job1_body:
+            "Büyük ölçekli bir commerce analytics platformunda teknik liderlik: mimari kararlar (RFC/ADR), ortak bileşen kütüphaneleri, developer experience. Yaklaşık on ay interim Engineering Manager olarak görev aldıktan sonra bilinçli olarak IC / teknik liderlik yoluna döndüm.",
+          job2_title: "Frontend Mühendisi → Mimar",
+          job2_co: "Ürünler ve ajanslar",
+          job2_body:
+            "Yüksek trafikli ürünler ve global markalar için 17 yıla yayılan frontend mühendisliği ve mimari deneyimi — elle yazılmış JavaScript'ten modern React stack'lerine.",
+          project_label: "Öne çıkan proje",
+          project_kicker: "App Store'da yayında",
+          project_tagline:
+            "Tek başıma tasarlayıp kodladığım ve yayınladığım bir iOS parti oyunu.",
+          project_body:
+            'BlindTimer yayında ve gelir getiriyor: birden fazla oyun modu, altı dil, VoiceOver erişilebilirlik desteği, in-app purchase ve reklam geliri. Ürün tasarımından koda, yerelleştirmeden mağaza yayınına kadar her adımı Claude Code\'la günlük pair yaparak uçtan uca ben yaptım. "Product engineer" bir unvan değil, bir çalışma biçimi — BlindTimer bunun kanıtı.',
+          fact_1: "6 dil",
+          fact_2: "Birden fazla oyun modu",
+          fact_3: "VoiceOver erişilebilirliği",
+          fact_4: "IAP + reklam geliri",
+          project_cta: "App Store'da görüntüle",
+          work_label: "Birlikte çalışalım",
+          work_intro:
+            "Tam zamanlı rollerin yanında danışmanlık ve serbest projeler de alıyorum. En faydalı olduğum alanlar:",
+          work_o1:
+            "<strong>Frontend mimarisi ve design system'ler</strong> — büyük React/TypeScript kod tabanlarını toparlamak, ekiplerin gerçekten benimsediği ortak bileşen kütüphaneleri kurmak.",
+          work_o2:
+            "<strong>AI destekli geliştirme</strong> — ekiplerin agentic araçları kalite kaybı yaşamadan gerçek mühendislik pratiğine katmasına yardım etmek.",
+          work_o3:
+            "<strong>Uçtan uca ürün geliştirme</strong> — fikirden yayınlanmış ürüne, tek sorumlu mühendisle.",
+          work_cta: "Projenizi anlatın",
+          contact_label: "İletişim",
+          contact_p:
+            "Bana ulaşmanın en hızlı yolu e-posta. İstanbul'dayım (UTC+3), AB saat dilimlerinde uzaktan çalışıyorum.",
+          contact_email_btn: "E-posta gönder",
+          footer:
+            "© 2026 Murat Doğan · Tek HTML dosyası olarak elde yazıldı — framework yok, takip yok.",
+          meta_desc:
+            "Murat Doğan — 17 yıllık frontend derinliğine sahip, ürünü uçtan uca çıkaran product engineer. React, TypeScript, AI destekli geliştirme. İstanbul, AB saat dilimlerinde uzaktan.",
+        },
+      };
+
+      /* ================================================================
+       Language
+       ================================================================ */
+      function setLang(lang) {
+        const dict = I18N[lang] || I18N.en;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key] !== undefined) el.textContent = dict[key];
+        });
+        document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-html");
+          if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute("content", dict.meta_desc);
+        document
+          .getElementById("lang-en")
+          .setAttribute("aria-pressed", String(lang === "en"));
+        document
+          .getElementById("lang-tr")
+          .setAttribute("aria-pressed", String(lang === "tr"));
+        try {
+          localStorage.setItem("md-lang", lang);
+        } catch (e) {}
+      }
+
+      /* ================================================================
+       Theme
+       ================================================================ */
+      function toggleTheme() {
+        const next =
+          document.documentElement.getAttribute("data-theme") === "dark"
+            ? "light"
+            : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        try {
+          localStorage.setItem("md-theme", next);
+        } catch (e) {}
+      }
+
+      /* ================================================================
+       Init
+       ================================================================ */
+      (function init() {
+        // Email: single source of truth for all mailto links
+        document.querySelectorAll("[data-mailto]").forEach((a) => {
+          a.href = "mailto:" + EMAIL;
+        });
+
+        // Restore language (default: English)
+        let lang = null;
+        try {
+          lang = localStorage.getItem("md-lang");
+        } catch (e) {}
+        if (lang === "tr") setLang("tr");
+      })();
+    </script>
+  </body>
+</html>
